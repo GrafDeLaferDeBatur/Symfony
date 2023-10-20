@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block forsession %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert alert-primary" role="alert">
+            <p class="flash-success">{{ message }}</p>
+            <hr>
+            <p class="mb-0"><a href="{{ path('showProduct', {'id' : app.request.attributes.get('id')}) }}" class="link-underline-light">Look at your product</a></p>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block body %}
+    {% embed "product/item.html.twig" with {'item' : item, 'formtype' : 'itemlist'} %}
+        {% block welcome %} Welcome home {% endblock %}
+    {% endembed %}
+{% endblock body %}

@@ -1,0 +1,105 @@
+#App\Command\ProductCreateCommand:
+#  getters:
+#    category:
+#      - Choice: [Food,NotFood,Milk,Meat,Stone]
+#    dimensions:
+#      - Choice: [Small,Medium,Large,]
+#    email:
+#      - Email:
+#          message: The email "{{ value }}" is not a valid email.
+#    hue:
+#      - Choice: [Brown,Green,BlueWhite,]
+#    width:
+#      - Type: integer
+#    weight:
+#      - Type: integer
+#    length:
+#      - Type: integer
+#    height:
+#      - Type: integer
+#    title:
+#      - NotBlank: ~
+#      - Type: string
+#      - Length:
+#          min: 4
+#          max: 255
+#    descr:
+#      - NotBlank: ~
+#      - Type: string
+#      - Length:
+#          min: 10
+#          max: 255
+#    price:
+#      - NotBlank: ~
+#      - Type: integer
+#      - GreaterThan:
+#          value: 0
+#    amount:
+#      - NotBlank: ~
+#      - Type: integer
+#      - GreaterThan:
+#          value: 0
+
+App\Entity\Product:
+  properties:
+    productAttribute:
+      - Valid: ~
+    title:
+      - NotBlank: ~
+      - Type: string
+      - Length:
+          min: 4
+          max: 255
+    descr:
+      - NotBlank: ~
+      - Type: string
+      - Length:
+          min: 10
+          max: 255
+    price:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThan:
+          value: 0
+    amount:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThan:
+          value: 0
+    user:
+      - NotBlank: { groups: [create_product_console] }
+
+
+App\Entity\ProductAttribute:
+  properties:
+    width:
+      - Type: integer
+      - GreaterThan:
+          value: 0
+    weight:
+      - Type: integer
+      - GreaterThan:
+          value: 0
+    length:
+      - Type: integer
+      - GreaterThan:
+          value: 0
+    height:
+      - Type: integer
+      - GreaterThan:
+          value: 0
+App\Entity\Object\SearchProduct:
+  properties:
+    min_price:
+#      - NotBlank: ~
+#      - Type: integer
+    max_price:
+#      - NotBlank: ~
+#      - Type: integer
+    min_weight:
+#      - NotBlank: ~
+#      - Type: integer
+    max_weight:
+#      - NotBlank: ~
+#      - Type: integer
+

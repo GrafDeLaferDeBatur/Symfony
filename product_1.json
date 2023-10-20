@@ -1,0 +1,59 @@
+[
+  {
+    "title": "Sugar",
+    "category": "Food",
+    "descr": "SugarSugar",
+    "price": "1",
+    "amount": "1",
+    "color": "Brown",
+    "dimensions": "Small",
+    "user": "s@s.s",
+    "weight": "1",
+    "length": "2",
+    "width": "3",
+    "height": "4"
+  },
+  {
+    "title": "Sugar1",
+    "category": "Food",
+    "descr": "SugarSugar",
+    "price": "1",
+    "amount": "1",
+    "color": "Green",
+    "dimensions": "Medium",
+    "user": "s@s.s",
+    "weight": "1",
+    "length": "2",
+    "width": "3",
+    "height": "4"
+
+  },
+  {
+    "title": "Sugar2",
+    "category": "Food",
+    "descr": "SugarSugar",
+    "price": "",
+    "amount": "1",
+    "color": "Green",
+    "dimensions": "Medium",
+    "user": "s@s.s",
+    "weight": "1",
+    "length": "2",
+    "width": "3",
+    "height": "4"
+  },
+  {
+    "title": "Sugar3",
+    "category": "NotFood",
+    "descr": "SugarSugar",
+    "price": "1",
+    "amount": "1",
+    "color": "Green",
+    "dimensions": "Medium",
+    "user": "s@s.s",
+    "weight": "1",
+    "length": "2",
+    "width": "3",
+    "height": "4"
+  }
+]

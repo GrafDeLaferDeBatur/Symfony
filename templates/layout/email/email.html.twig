@@ -1,0 +1,10 @@
+{% apply inline_css %}
+    {% if product %}
+        <div>ID product: {{ product.id }}</div>
+        <div>Title product: {{ product.title }}</div>
+        <div>Src product: <a href="{{ url('showProduct', {'slug' : product.slug}) }}">Click here to look at the product!!!</a></div>
+{#        <div>Src product: <a href="{{ app.request.getSchemeAndHttpHost() ~ path('showProduct', {'slug' : product.slug}) }}">Click here to look at the product!!!</a></div>#}
+    {% else %}
+        <div>Sth broken</div>
+    {% endif %}
+{% endapply %}

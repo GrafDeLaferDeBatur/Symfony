@@ -1,5 +1,48 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+showProducts:
+    path: /products
+    controller: 'App\Controller\ProductController::showAll'
+#
+#base:
+#    path: /
+#    controller: 'App\Controller\ProductController::showAll'
+
+addProduct:
+    path: /product/add
+    controller: 'App\Controller\ProductController::add'
+
+editProduct:
+    path: /product/{slug}/edit
+    controller: 'App\Controller\ProductController::add'
+    requirements:
+        name: '\d+'
+
+showProduct:
+    path: /product/{slug}
+    controller: 'App\Controller\ProductController::show'
+    requirements:
+        name: '\d+'
+
+app_register:
+    path: /register
+    controller: 'App\Controller\RegistrationController::register'
+
+app_login:
+    path: /login
+    controller: 'App\Controller\LoginController::index'
+
+app_logout:
+    path: /logout
+    controller: 'App\Controller\LogoutController::logout'
+    methods: GET
+
+deletingProduct:
+    path: /product/{slug}/delete
+    controller: 'App\Controller\ProductController::delete'
+
+email:
+    path: /email
+    controller: 'App\Controller\MailerController::sendEmail'
+
+#test:
+#    path: /test
+#    controller: 'App\Controller\ProductController::test'
