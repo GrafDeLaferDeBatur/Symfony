@@ -25,19 +25,19 @@ class ProductAttributeType extends AbstractType
     {
         $builder
             ->add('width', TextType::class, [
-                'label' => 'Product`s width',
+                'label' => 'product_create.width',
                 'constraints' => [new Valid()]
             ])
             ->add('weight', TextType::class, [
-                'label' => 'Product`s weight',
+                'label' => 'product_create.weight',
                 'constraints' => [new Valid()]
             ])
             ->add('length', TextType::class, [
-                'label' => 'Product`s length',
+                'label' => 'product_create.length',
                 'constraints' => [new Valid()]
             ])
             ->add('height', TextType::class, [
-                'label' => 'Product`s height',
+                'label' => 'product_create.height',
                 'constraints' => [new Valid()]
             ]);
     }

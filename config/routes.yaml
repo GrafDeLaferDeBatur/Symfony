@@ -1,48 +1,140 @@
 showProducts:
-    path: /products
+    path: /{_locale}{_S}
+#    methods: GET|HEAD
     controller: 'App\Controller\ProductController::showAll'
-#
-#base:
-#    path: /
-#    controller: 'App\Controller\ProductController::showAll'
+    defaults:
+        _locale: 'en'
+        _S: '/'
+    requirements:
+        _S: '/?'
+        _locale: '|en|ru'
+    options:
+        expose: true
+
+downloadJsonProduct:
+    path: /{_locale}{_S}download/json
+    controller: 'App\Controller\ProductController::addJsonProduct'
+    prefix: '{_locale}{_S}'
+    defaults:
+        _locale: 'en'
+        _S: '/'
+    requirements:
+        _S: '/?'
+        _locale: '|en|ru'
 
 addProduct:
-    path: /product/add
+    path: /{_locale}{_S}product/add
     controller: 'App\Controller\ProductController::add'
+    defaults:
+        _locale: 'en'
+        _S: '/'
+    requirements:
+        _S: '/?'
+        _locale: '|en|ru'
 
 editProduct:
-    path: /product/{slug}/edit
+    path: /{_locale}{_S}product/{slug}/edit
     controller: 'App\Controller\ProductController::add'
+    defaults:
+        _locale: 'en'
+        _S: '/'
     requirements:
         name: '\d+'
+        _S: '/?'
+        _locale: '|en|ru'
 
 showProduct:
-    path: /product/{slug}
+    path: /{_locale}{_S}product/{slug}
     controller: 'App\Controller\ProductController::show'
+    defaults:
+        _locale: 'en'
+        _S: '/'
     requirements:
         name: '\d+'
+        _S: '/?'
+        _locale: '|en|ru'
 
 app_register:
-    path: /register
+    path: /{_locale}{_S}register
     controller: 'App\Controller\RegistrationController::register'
+    defaults:
+        _locale: 'en'
+        _S: '/'
+    requirements:
+        _S: '/?'
+        _locale: '|en|ru'
 
 app_login:
-    path: /login
+    path: /{_locale}{_S}login
     controller: 'App\Controller\LoginController::index'
+    defaults:
+        _locale: 'en'
+        _S: '/'
+    requirements:
+        _S: '/?'
+        _locale: '|en|ru'
 
 app_logout:
-    path: /logout
+    path: /{_locale}{_S}logout
     controller: 'App\Controller\LogoutController::logout'
+    defaults:
+        _locale: 'en'
+        _S: '/'
+    requirements:
+        _S: '/?'
+        _locale: '|en|ru'
     methods: GET
 
 deletingProduct:
-    path: /product/{slug}/delete
+    path: /{_locale}{_S}product/{slug}/delete
     controller: 'App\Controller\ProductController::delete'
+    defaults:
+        _locale: 'en'
+        _S: '/'
+    requirements:
+        _S: '/?'
+        _locale: '|en|ru'
+    options:
+        expose: true
 
 email:
-    path: /email
+    path: /{_locale}{_S}email
     controller: 'App\Controller\MailerController::sendEmail'
+    defaults:
+        _locale: 'en'
+        _S: '/'
+    requirements:
+        _S: '/?'
+        _locale: '|en|ru'
 
-#test:
-#    path: /test
-#    controller: 'App\Controller\ProductController::test'
+color_add:
+    path: /{_locale}{_S}color
+    controller: 'App\Controller\ProductController::addColor'
+    defaults:
+        _locale: 'en'
+        _S: '/'
+    requirements:
+        _S: '/?'
+        _locale: '|en|ru'
+
+admin_panel:
+    path: /{_locale}{_S}admin/panel/
+    controller: 'App\Controller\ProductController::adminPanel'
+    defaults:
+        start: 1
+        _locale: 'en'
+        _S: '/'
+    requirements:
+        _S: '/?'
+        _locale: '|en|ru'
+
+giveTitlesAndDescriptions:
+    path: /json/title/description/{given}/{side}
+    controller: 'App\Controller\ProductController::giveTitlesAndDescriptions'
+    options:
+        expose: true
+
+test:
+    path: /test
+    controller: 'App\Controller\ProductController::test'
+

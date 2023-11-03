@@ -9,6 +9,7 @@ parameters:
 
     file_image_directory: '%kernel.project_dir%/public/ProductPNG/'
     file_json_directory: '%kernel.project_dir%/'
+    file_json_product_directory: '%kernel.project_dir%/public/ProductJSON/'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -31,6 +32,16 @@ services:
     App\Command\ProductCreateFromJSONCommand:
         arguments:
             $targetDirectory: '%file_json_directory%'
+
+    App\Service\JSONUploader:
+        arguments:
+            $targetDirectory: '%file_json_product_directory%'
+
+    App\MessageHandler\FileMessageHandler:
+        arguments:
+            $targetDirectory: '%file_json_product_directory%'
+
+#    App\Validator\Constraints\IsEmailOrPhone: ~
 
 #    Symfony\Component\Finder\Finder:
 #        autowire: true

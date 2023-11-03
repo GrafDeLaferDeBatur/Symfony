@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ErrorController!{% endblock %}
+
+{% block body %}
+{#    {{ dump() }}#}
+    {#    {% if app.request.get('exception').statusCode is defined and app.request.get('exception').statusCode is not empty %}#}
+    {#        <div class="alert alert-danger">Error: {{ app.request.get('exception').statusCode }}</div>#}
+    {#    {% endif %}#}
+    {#    <div class="alert alert-danger">Error message: {{ app.request.get('exception').message }}</div>#}
+    <div class="alert alert-danger">Error: {{ status_code }}</div>
+    <div class="alert alert-danger">Error message: {{ status_text }}</div>
+{% endblock %}

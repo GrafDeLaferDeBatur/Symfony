@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Product;
 use App\Entity\ProductAttribute;
+use App\Entity\User;
 use App\Repository\CategoryRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -29,6 +30,11 @@ class ProductFixtures extends Fixture
             $exampleProduct->setProductAttribute($exampleProductAttr);
             $exampleProduct->setDimensions(mt_rand(1,3));
             $exampleProduct->setCategory($this->getReference(CategoryFixtures::categories[array_rand(CategoryFixtures::categories)]));
+
+//            $user = new User();
+//            $user->setEmail('s@s.s');
+//
+//            $exampleProduct->setUser($user);
             $manager->persist($exampleProduct);
         }
 

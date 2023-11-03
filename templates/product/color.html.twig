@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_5_horizontal_custom_layout.html.twig' %}
+
+{% block forsession %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert alert-success" role="alert">
+            <p class="flash-success">{{ message }}</p>
+            <hr>
+            <p class="mb-0"><a href="{{ path('showProduct', {'slug' : app.request.attributes.get('slug')}) }}" class="link-underline-light">Look at your product</a></p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+
+    {% if status != '' %}
+        <div class="alert alert-success" role="alert">
+            {{ status }}
+        </div>
+    {% endif %}
+
+    {{ form_start(form) }}
+
+
+    {{ form_end(form) }}
+
+{% endblock %}

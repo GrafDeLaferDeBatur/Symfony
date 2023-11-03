@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{#{% form_theme form 'bootstrap_5_horizontal_custom_layout.html.twig' %}#}
+
+{% block forsession %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert alert-success" role="alert">
+            <p class="flash-success">{{ message }}</p>
+            <hr>
+            <p class="mb-0"><a href="{{ path('showProduct', {'slug' : app.request.attributes.get('slug')}) }}" class="link-underline-light">Look at your product</a></p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+{#    {{ dump(app.request) }}#}
+    <input type="search" id="searchInput" class="" placeholder="" aria-controls="dt">
+    <button id="searchButton">Search</button>
+    <div id="myTable" data-page-length='10'>
+    </div>
+
+
+
+{% endblock %}
+{% block jija %}
+
+{#    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>#}
+    <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+    {{ encore_entry_script_tags('app') }}
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+    <script>
+{#        {{ dump(entity) }}#}
+$(document).ready(function() {
+
+    let table;
+        $('#myTable').initDataTables({{ datatable_settings(entity) }}, {
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                {
+                    extend: 'searchPanes',
+                    config: {
+                    cascadePanes: true
+                }},
+                'copy',
+                {extend: 'pdf', title: 'domains'},
+                {extend: 'print'}
+            ],
+        }).then(function(dt){
+            table = dt;
+        });
+
+
+    $('#searchButton').on('click', function(e){
+        console.log(table.column(1).data());
+        // e.preventDefault();
+        table.table().column(1).search($('#searchInput').eq(0).val(), false, false).draw()
+    });
+
+});
+    </script>
+{% endblock %}

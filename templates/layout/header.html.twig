@@ -1,15 +1,24 @@
+{% trans_default_domain 'header' %}
 <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <select class="selectpicker">
+        <option id="en">En</option>
+        <option id="ru">Ru</option>
+    </select>
     <button class="btn btn-primary d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none" onclick="window.history.back()"><-</button>
+    <a href="{{ path('downloadJsonProduct') }}" class="btn btn-primary d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">{{ 'header.save_json'|trans }}</a>
     <ul class="nav nav-pills">
-        <li class="nav-item"><a href="{{ path('showProducts') }}" class="nav-link active" aria-current="page">List of product: {{ countItems }} items</a></li>
+        <li class="nav-item"><a href="{{ path('showProducts') }}" class="nav-link active" aria-current="page">{{ 'header.list_products'|trans }}: {{ countItems }}</a></li>
         {% if(slugProduct) %}
-            <li class="nav-item"><a href="{{ path('showProduct', {'slug' : slugProduct}) }}" class="nav-link" aria-current="page">Look at your product</a></li>
+            <li class="nav-item"><a href="{{ path('showProduct', {'slug' : slugProduct}) }}" class="nav-link" aria-current="page">{{ 'header.look_at_session'|trans }}</a></li>
+        {% endif %}
+        {% if(productSlug) %}
+            <li class="nav-item"><a href="{{ path('showProduct', {'slug' : productSlug}) }}" class="nav-link" aria-current="page">{{ 'header.look_at_cache'|trans }}</a></li>
         {% endif %}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link" aria-current="page">Log out</a></li>
+            <li class="nav-item"><a href="{{ path('addProduct') }}" class="nav-link">Create a new product</a></li>
+            <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link" aria-current="page">{{ 'header.log_out'|trans }}</a></li>
         {% else%}
             <li class="nav-item"><a href="{{ path('app_login') }}" class="nav-link" aria-current="page">Log in</a></li>
         {% endif %}
-        <li class="nav-item"><a href="{{ path('addProduct') }}" class="nav-link">Create a new product</a></li>
     </ul>
 </header>

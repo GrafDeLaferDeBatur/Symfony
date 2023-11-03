@@ -73,6 +73,9 @@ class Product
     #[ORM\ManyToMany(targetEntity: Telephone::class, inversedBy: 'products', cascade: ['persist'])]
     private Collection $phoneNumber;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $tags = null;
+
     public function __construct()
     {
         $this->phoneNumber = new ArrayCollection();
@@ -274,6 +277,18 @@ class Product
     public function removePhoneNumber(Telephone $phoneNumber): static
     {
         $this->phoneNumber->removeElement($phoneNumber);
+
+        return $this;
+    }
+
+    public function getTags(): ?array
+    {
+        return $this->tags;
+    }
+
+    public function setTags(?array $tags): static
+    {
+        $this->tags = $tags;
 
         return $this;
     }

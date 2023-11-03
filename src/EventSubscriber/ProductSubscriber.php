@@ -2,20 +2,22 @@
 
 namespace App\EventSubscriber;
 
-use App\Controller\MailerController;
 use App\Events\AddAttributesSessionEvent;
-use App\Repository\ProductRepository;
-use App\Service\Model\ProductModel;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use App\Service\RedisService;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class ProductSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly RequestStack $request,
-    ){}
+        private readonly RequestStack           $request,
+//        private readonly RedisService $redisService,
+        private readonly TagAwareCacheInterface $myCachePool,
+    ){
+    }
     public static function getSubscribedEvents(): array
     {
         return [
@@ -49,7 +51,7 @@ class ProductSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @throws TransportExceptionInterface
+     * @throws InvalidArgumentException
      */
     public function addSessionProduct(AddAttributesSessionEvent $event): void
     {
@@ -59,6 +61,15 @@ class ProductSubscriber implements EventSubscriberInterface
         if ($event->getState() === 'created' || $event->getState() === 'updated') {
             $this->setSessionIdProduct($event->getProduct()->getId());
             $this->setSessionSlugProduct($event->getProduct()->getSlug());
+
+            $this->myCachePool->delete('product.slug');
+            $this->myCachePool->get('product.slug', function(ItemInterface $item) use ($event) {
+                $item->set($event->getProduct()->getSlug());
+                $item->tag('product.slug');
+                $this->myCachePool->save($item);
+
+                return $item->get();
+            });
         }
     }
 

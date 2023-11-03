@@ -5,9 +5,13 @@
     {% endfor %}
 {% endblock %}
 {% block body %}
-    {{ form(formSearchProduct) }}
+
+    <form id="form_search" name="search_product" method="post" action="{{ path('showProducts') }}">
+        {{ form_widget(formSearchProduct) }}
+    </form>
+
     <div class="row">
-        {% for item in items %}
+        {% for item in pagination %}
             <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp">
                 {% embed "product/item.html.twig" with {'item' : item, 'formtype' : 'list'} %}
 
@@ -15,4 +19,8 @@
             </div>
         {% endfor %}
     </div>
+    <ul class="pagination">
+        <li class="page-item">{{ knp_pagination_render(pagination) }}</li>
+    </ul>
+
 {% endblock %}

@@ -47,6 +47,24 @@ class ColorRepository extends ServiceEntityRepository
             ;
     }
 
+    public function save(Color $color, bool $flush): void
+    {
+        $this->getEntityManager()->persist($color);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Color $color, bool $flush): void
+    {
+        $this->getEntityManager()->remove($color);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 //    /**
 //     * @return Color[] Returns an array of Color objects
 //     */

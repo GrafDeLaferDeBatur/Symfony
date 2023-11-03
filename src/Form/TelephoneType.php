@@ -12,25 +12,10 @@ class TelephoneType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('phoneNumber');
-//        ->add('phoneNumber', EntityType::class, [
-//        'label' => 'Product`s phone',
-//        'class' => Telephone::class,
-//        'choice_label' => 'phoneNumber',
-////            'required' => false,
-//    ])
-//        ->add('phoneNumber', EntityType::class, [
-//            'label' => 'Product`s phone',
-//            'class' => Telephone::class,
-//            'choice_label' => 'phoneNumber',
-////            'required' => false,
-//        ])
-//        ->add('phoneNumber', EntityType::class, [
-//            'label' => 'Product`s phone',
-//            'class' => Telephone::class,
-//            'choice_label' => 'phoneNumber',
-////            'required' => false,
-//        ]);
+        $builder
+            ->add('phoneNumber', null, [
+                'label' => 'product_create.delete_phone_number',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

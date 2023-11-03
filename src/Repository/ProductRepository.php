@@ -36,6 +36,30 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function giveTitlesAndDescriptionsJSON($given, $side): array|float|int|string
+    {
+        return
+            $this
+            ->createQueryBuilder('p')
+            ->select('p.title, p.descr, p.price')
+            ->andWhere("p.title LIKE ':given' OR p.descr LIKE :given")
+            ->setParameter(':given', $this->side($given, $side))
+            ->setMaxResults('3')
+            ->getQuery()
+            ->getArrayResult();
+    }
+    public function side(string $given, $side){
+        if($side === 'start'){
+            $given = $given . '%';
+        }elseif($side === 'end'){
+            $given = '%' . $given;
+        }else{
+            $given = '%' . $given . '%';
+        }
+//        dump($given);die;
+        return $given;
+    }
     public function findByField(SearchProduct $searchProduct)
     {
         $queryBuilder = $this->createQueryBuilder('p')

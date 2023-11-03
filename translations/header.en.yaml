@@ -1,0 +1,8 @@
+header:
+  save_json : 'Let`s save product from JSON file'
+  list_products : 'List of products'
+  log_out : 'Log out'
+  log_in : 'Log in'
+  create_product : 'Create a new product'
+  look_at_session : 'Look at session product'
+  look_at_cache : 'Look at cached product'

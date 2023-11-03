@@ -8,6 +8,7 @@ use App\Form\Object\SearchProduct;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,53 +20,68 @@ class SearchProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+//            ->setMethod('GET')
             ->add('min_price', IntegerType::class,[
-                'label' => 'Product`s minimal price',
+                'label' => 'product_search.min_price',
                 'empty_data' => null,
                 'required' => false,
+                'attr' => ['data-info' => ''],
             ])
             ->add('max_price', IntegerType::class,[
-                'label' => 'Product`s maximum price',
+                'label' => 'product_search.max_price',
                 'empty_data' => null,
                 'required' => false,
+                'attr' => ['data-info' => ''],
             ])
             ->add('category', EntityType::class,[
-                'label' => 'Product`s category',
+                'label' => 'product_search.category',
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'required' => false,
+                'attr' => ['data-info' => ''],
             ])
             ->add('color', EntityType::class, [
-                'label' => 'Product`s color',
+                'label' => 'product_search.color',
                 'class' => Color::class,
                 'choice_label' => 'color',
                 'required' => false,
+                'attr' => ['data-info' => ''],
             ])
             ->add('min_weight', IntegerType::class,[
-                'label' => 'Product`s minimal weight',
+                'label' => 'product_search.min_weight',
                 'empty_data' => null,
                 'required' => false,
+                'attr' => ['data-info' => ''],
             ])
             ->add('max_weight', IntegerType::class,[
-                'label' => 'Product`s maximum weight',
+                'label' => 'product_search.max_weight',
                 'empty_data' => null,
                 'required' => false,
+                'attr' => ['data-info' => ''],
             ])
             ->add('substring', TextType::class,[
-                'label' => 'Search by part/whole title/description',
+                'label' => 'product_search.search_by',
                 'empty_data' => null,
                 'required' => false,
+                'attr' => [
+                    'data-info' => '',
+                    'class' => 'typeahead',
+                ],
             ])
             ->add('sort', ChoiceType::class,[
-                'label' => 'Sort products by',
+                'label' => 'product_search.sort_by',
                 'choices'=>[
                     '' => null,
                     'price' => 'p.price',
                     'weight' => 'u.weight'
                 ],
+                'attr' => ['data-info' => ''],
+            ])
+            ->add('page', HiddenType::class,[
+                'mapped' => false,
             ])
             ->add('search', SubmitType::class, [
-                'label' => 'Search products'
+                'label' => 'product_search.search'
             ])
         ;
     }

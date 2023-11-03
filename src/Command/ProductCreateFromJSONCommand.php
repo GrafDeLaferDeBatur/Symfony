@@ -74,15 +74,9 @@ class ProductCreateFromJSONCommand extends Command
         $normalizer = [new ArrayDenormalizer(), new ObjectNormalizer(null, null, null, $extractor)];
         $serializer = new Serializer($normalizer, $encoder);
 
-
-//        $productList = $this->finder
-//            ->in($this->targetDirectory);
         $productList = file_get_contents($this->targetDirectory."product_1.json");
 
         $productSerials = $serializer->deserialize($productList, 'App\Form\Object\ProductSerial[]' ,'json');
-
-        $products = array();
-
 
         $this->entityManager->getConnection()->beginTransaction();
         foreach ($productSerials as $productSerial){
@@ -113,15 +107,8 @@ class ProductCreateFromJSONCommand extends Command
 
             $productAttribute->setProduct($product);
 
-            $errors = $this->validator->validate($product, null, ['create_product_console']);
+            $errors = $this->validator->validate($product, null, ['Default' , 'create_product_console']);
             $output->writeln('Count error:' . count($errors));
-//            if (count($errors) > 0) {
-//                foreach ($errors as $error) {
-//                    $output->writeln($error->getMessage());
-//                    $output->writeln($error->getPropertyPath());
-//                }
-//                return Command::INVALID;
-//            }
 
             try {
                 $this->productModel->update($product);
@@ -131,10 +118,6 @@ class ProductCreateFromJSONCommand extends Command
             }
         }
         $this->entityManager->commit();
-
-
-
-
         return Command::SUCCESS;
     }
     protected function configure(): void

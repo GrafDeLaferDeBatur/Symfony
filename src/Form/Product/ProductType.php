@@ -7,6 +7,7 @@ use App\Entity\Color;
 use App\Entity\Product;
 use App\Entity\ProductAttribute;
 use App\Form\CategoryType\CategoryType;
+use App\Form\DataTransformer\TagsToStringTransformer;
 use App\Form\ProductAttribute\ProductAttributeType;
 use App\Form\TelephoneType;
 use App\Service\User\AuthService;
@@ -34,27 +35,37 @@ use Symfony\Component\Validator\Constraints\Valid;
 class ProductType extends AbstractType
 {
     public function __construct(
-//        private readonly AuthService $authService,
-//        private readonly AuthenticationUtils $authenticationUtils,
+        private readonly TagsToStringTransformer $transformer,
     ){}
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Product`s title'
+                'translation_domain' => 'form',
+                'label' => 'product_create.title'
+            ])
+            ->add('tags', TextType::class, [
+//                'mapped' => false,
+                'required' => false,
+                'translation_domain' => 'form',
+                'label' => 'product_create.tags'
             ])
             ->add('descr', TextareaType::class, [
-                'label' => 'Product`s description',
-                'help' => 'Write sth plz'
+                'translation_domain' => 'form',
+                'label' => 'product_create.description',
+//                'help' => 'Write sth plz'
             ])
             ->add('price', IntegerType::class, [
-                'label' => 'Product`s price'
+                'translation_domain' => 'form',
+                'label' => 'product_create.price',
             ])
             ->add('amount', IntegerType::class, [
-                'label' => 'Product`s amount'
+                'translation_domain' => 'form',
+                'label' => 'product_create.amount'
             ])
             ->add('dimensions', ChoiceType::class, [
-                'label' => 'Product`s dimensions',
+                'translation_domain' => 'form',
+                'label' => 'product_create.dimensions',
                 'choices' => [
                     '' => null,
                     'Small' => Product::DIMENSIONS_SMALL,
@@ -63,19 +74,33 @@ class ProductType extends AbstractType
                 ]
             ])
             ->add('color', EntityType::class, [
-                'label' => 'Product`s color',
+                'translation_domain' => 'form',
+                'label' => 'product_create.color',
                 'class' => Color::class,
                 'choice_label' => 'color',
                 'required' => false,
             ])
-            ->add('productAttribute', ProductAttributeType::class)
+            ->add('productAttribute', ProductAttributeType::class,[
+                'translation_domain' => 'form',
+                'label' => 'product_create.attribute',
+            ])
             ->add('category', EntityType::class,[
-                'label' => 'Product`s category',
+                'translation_domain' => 'form',
+                'label' => 'product_create.category',
                 'class' => Category::class,
                 'choice_label' => 'name'
             ])
+            ->add('phoneNumber', CollectionType::class,[
+                'entry_type' => TelephoneType::class,
+                'label' => false,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
             ->add('imageName', FileType::class, [
-                'label' => 'Image of product',
+                'translation_domain' => 'form',
+                'label' => 'product_create.image',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -88,16 +113,13 @@ class ProductType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('phoneNumber', CollectionType::class,[
-                'entry_type' => TelephoneType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-            ])
             ->add('save', SubmitType::class, [
-                'label' => 'Save',
+                'translation_domain' => 'form',
+                'label' => 'product_create.save',
             ]);
+
+        $builder->get('tags')
+            ->addModelTransformer($this->transformer);
     }
     public function configureOptions(OptionsResolver $resolver): void
     {

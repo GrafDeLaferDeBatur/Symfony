@@ -1,0 +1,8 @@
+header:
+  save_json : 'Сох-ть продукт из JSON файла'
+  list_products : 'Список продуктов'
+  log_out : 'Выйти из аккаунта'
+  log_in : 'Авторизоваться'
+  create_product : 'Создать новый продукт'
+  look_at_session : 'Взгляни на продукт'
+  look_at_cache : 'Взгляни на продукт в кеше'

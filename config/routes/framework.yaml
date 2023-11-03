@@ -2,3 +2,9 @@ when@dev:
     _errors:
         resource: '@FrameworkBundle/Resources/config/routing/errors.xml'
         prefix: /_error
+#    controllers:
+#        resource: '../../src/Controller/'
+#        type: annotation
+#        prefix:
+#            en: 'test.loc' # don't prefix URLs for English, the default locale
+#            ru: 'test.loc/ru'

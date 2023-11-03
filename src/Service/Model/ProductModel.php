@@ -56,7 +56,10 @@ class ProductModel
         $this->productRepository->save($product, true);
 
         try {
-            $this->dispatcher->dispatch($eventSendEmail, $eventSendEmail::NAME);
+            ///
+            /// Don`t delete, it`s for mailing
+            ///
+//            $this->dispatcher->dispatch($eventSendEmail, $eventSendEmail::NAME);
             $this->dispatcher->dispatch($event, $event::NAME);
         }catch (\Exception){}
 
@@ -71,6 +74,10 @@ class ProductModel
         $this->productRepository->remove($product, true);
 
         $this->dispatcher->dispatch($event, $event::NAME);
+    }
+
+    public function gibePID(){
+        return getmypid();
     }
 
 }
